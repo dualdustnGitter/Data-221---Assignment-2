@@ -51,22 +51,28 @@ with open("sample-file.txt", "r") as textFileInput:
     
     
     # get list of top 10 number of repeated words
+    # initialize variables to help show top 10 repeated words with their quantities
     topHowManyNumbersToBeRecorded = 10
     uniqueKeysWithQuantities = ""
     listOfTop10RepeatedTokens = []
     listOfTop10Quantities = []
-    listOfValuesInDictionary = list(dictionaryOfUniqueTokensAndQuantities.values())
+
+
+    # get top 10 largest values
+    listOfValuesInDictionary = list(dictionaryOfUniqueTokensAndQuantities.values()) # turn values/quantity of dictionary to a list
     listOfValuesInDictionary = sorted(listOfValuesInDictionary, reverse=True) # have it sort as descended instead
     
-    listOfTop10Quantities = listOfValuesInDictionary[:topHowManyNumbersToBeRecorded]
+    listOfTop10Quantities = listOfValuesInDictionary[:topHowManyNumbersToBeRecorded] # have top 10 recorded only
 
+    # go through top 10 counts
     for quantityOfUniqueKey in listOfTop10Quantities:
-        for singularToken in list(dictionaryOfUniqueTokensAndQuantities.keys()):
+        for singularToken in list(dictionaryOfUniqueTokensAndQuantities.keys()): # then get keys with the same value and record them (only if it isnt recorded yet, so doesnt repeat)
             if (singularToken not in listOfTop10RepeatedTokens) and (dictionaryOfUniqueTokensAndQuantities[singularToken] == quantityOfUniqueKey):
                 listOfTop10RepeatedTokens.append(singularToken)
-                break
+                break # exit loop early after finding key with the required value/quantity
 
         
+    # add the top 10 counted words and their quantities and format it into the required format
     for indexCounterForTop10 in range(topHowManyNumbersToBeRecorded):
         uniqueKeysWithQuantities += listOfTop10RepeatedTokens[indexCounterForTop10] + " -> " + str(listOfTop10Quantities[indexCounterForTop10]) + ", "
 
