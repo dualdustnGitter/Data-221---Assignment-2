@@ -14,7 +14,7 @@ with open("sample-file.txt", "r") as textFileInput:
     # split into tokens and clean up
     # lowercase contents and split into tokens/words
     listContentsOfFile = (contentsOfFile.lower()).split()
-    cleanedUpListOfContents = []
+    cleanedUpListOfContents = [] # store list of cleaned words
 
     # expanded version of punctuation removal
     punctuationCharacters = ",.!?"
@@ -31,6 +31,15 @@ with open("sample-file.txt", "r") as textFileInput:
             cleanedUpListOfContents.append(singularToken)
 
 
+    listOfBigrams = []
+    for listBigramIndexCounter in range(0, len(cleanedUpListOfContents), 2):
+        if listBigramIndexCounter == len(cleanedUpListOfContents)-2:
+            listOfBigrams.append(cleanedUpListOfContents[-1:])
+        else:
+            listOfBigrams.append(cleanedUpListOfContents[listBigramIndexCounter:listBigramIndexCounter+2])
+
+    
+    print(listOfBigrams)
 
 
 
