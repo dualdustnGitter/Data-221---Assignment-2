@@ -31,17 +31,17 @@ with open("sample-file.txt", "r") as textFileInput:
             cleanedUpListOfContents.append(singularToken)
 
 
+    # create lsit of bigrams
     listOfBigrams = []
     for listBigramIndexCounter in range(0, len(cleanedUpListOfContents), 2):
-        if listBigramIndexCounter == len(cleanedUpListOfContents)-2:
+        if listBigramIndexCounter == len(cleanedUpListOfContents)-2: # if its the last word and the length of the cleaned contents is odd then add just the last word 
             listOfBigrams.append(cleanedUpListOfContents[-1:])
-        else:
+        else: # otherwise just add the 2 words as a list into the list of binoms
             listOfBigrams.append(cleanedUpListOfContents[listBigramIndexCounter:listBigramIndexCounter+2])
 
     
-    print(listOfBigrams)
-
-
+    
+    # count amount of repitions of bigrams
 
 
 textFileInput.close()
