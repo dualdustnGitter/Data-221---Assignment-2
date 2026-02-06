@@ -31,7 +31,7 @@ with open("sample-file.txt", "r") as textFileInput:
             cleanedUpListOfContents.append(singularToken)
 
 
-    # create lsit of bigrams
+    # create list of bigrams
     listOfBigrams = []
     for listBigramIndexCounter in range(0, len(cleanedUpListOfContents), 2):
         if listBigramIndexCounter == len(cleanedUpListOfContents)-2: # if its the last word and the length of the cleaned contents is odd then add just the last word 
@@ -45,14 +45,32 @@ with open("sample-file.txt", "r") as textFileInput:
     dictionaryOfUniqueBigramsAndQuantities = {}
     for bigramListCounter in range(len(listOfBigrams)):
         if listOfBigrams[bigramListCounter] not in list(dictionaryOfUniqueBigramsAndQuantities.keys()):
-            dictionaryOfUniqueBigramsAndQuantities[listOfBigrams[bigramListCounter]] = 1
+            dictionaryOfUniqueBigramsAndQuantities[listOfBigrams[bigramListCounter]] = 1 # if it wasnt counted already count bigram as first appearance
         else:
-            dictionaryOfUniqueBigramsAndQuantities[listOfBigrams[bigramListCounter]] += 1
+            dictionaryOfUniqueBigramsAndQuantities[listOfBigrams[bigramListCounter]] += 1 # add onto the count if encountered
 
-    print(dictionaryOfUniqueBigramsAndQuantities)
+
+    # print(dictionaryOfUniqueBigramsAndQuantities)
 
     
+    # get top 10 repeated bigrams
+    topHowManyNumbersToBeRecorded = 10 # to avoid magic numbers
+    top10BigramQuantities = sorted(list(dictionaryOfUniqueBigramsAndQuantities.values()), reverse=True) # much like A1 sort by descending (biggest to smallest)
+    top10BigramQuantities = top10BigramQuantities[:topHowManyNumbersToBeRecorded] # get first 10 
 
+    top10BigramRepeated = []
+    # go through top 10 values 
+    for top10BigramQuantityValue in top10BigramQuantities:
+        for actualBigram in list(dictionaryOfUniqueBigramsAndQuantities.keys()):
+            # again much like A1 find bigrams with same value and not in top 10 list yet, then add it
+            if (actualBigram not in top10BigramRepeated) and (dictionaryOfUniqueBigramsAndQuantities[actualBigram] == top10BigramQuantityValue):
+                top10BigramRepeated.append(actualBigram)
+                break
 
+    # print(top10BigramRepeated)
+
+    # then show the top 10 bigrams and quantities
+    for actualBigram in top10BigramRepeated:
+        print(str(actualBigram) + " -> " + str(dictionaryOfUniqueBigramsAndQuantities[actualBigram]))
 
 textFileInput.close()
