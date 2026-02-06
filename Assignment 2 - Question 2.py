@@ -35,13 +35,24 @@ with open("sample-file.txt", "r") as textFileInput:
     listOfBigrams = []
     for listBigramIndexCounter in range(0, len(cleanedUpListOfContents), 2):
         if listBigramIndexCounter == len(cleanedUpListOfContents)-2: # if its the last word and the length of the cleaned contents is odd then add just the last word 
-            listOfBigrams.append(cleanedUpListOfContents[-1:])
+            listOfBigrams.append(tuple(cleanedUpListOfContents[-1:])) # convert list (bigram) into tuple so it can be used as a key for dictionary
         else: # otherwise just add the 2 words as a list into the list of binoms
-            listOfBigrams.append(cleanedUpListOfContents[listBigramIndexCounter:listBigramIndexCounter+2])
+            listOfBigrams.append(tuple(cleanedUpListOfContents[listBigramIndexCounter:listBigramIndexCounter+2])) # same here
 
     
-    
+    # print(listOfBigrams)
     # count amount of repitions of bigrams
+    dictionaryOfUniqueBigramsAndQuantities = {}
+    for bigramListCounter in range(len(listOfBigrams)):
+        if listOfBigrams[bigramListCounter] not in list(dictionaryOfUniqueBigramsAndQuantities.keys()):
+            dictionaryOfUniqueBigramsAndQuantities[listOfBigrams[bigramListCounter]] = 1
+        else:
+            dictionaryOfUniqueBigramsAndQuantities[listOfBigrams[bigramListCounter]] += 1
+
+    print(dictionaryOfUniqueBigramsAndQuantities)
+
+    
+
 
 
 textFileInput.close()
