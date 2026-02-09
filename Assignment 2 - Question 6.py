@@ -9,6 +9,7 @@
 ### 
 
 import pandas
+import numpy
 
 csvFileInput = pandas.read_csv("crime.csv", delimiter=",")
 
@@ -25,9 +26,22 @@ for numberOfViolentCrimes in violentCrimesPerPopColumnOfDataframe:
 columnOfViolentCrimes = pandas.DataFrame(listOfRiskValue)
 
 
-# group it into another csv
-
-
 # calc ag of pctunemplyed per group
+columnOfPctUnemployed = csvFileInput["PctUnemployed"]
+
+listOfHighCrimeUnemployementRate = []
+listOfLowCrimeUnemployementRate = []
+
+
+
+
+for indexOfCSVCounter in range(len(csvFileInput)):
+    if listOfRiskValue[indexOfCSVCounter] == "High-Crime":
+        listOfHighCrimeUnemployementRate.append(columnOfPctUnemployed[indexOfCSVCounter])
+    else:
+        listOfLowCrimeUnemployementRate.append(columnOfPctUnemployed[indexOfCSVCounter])
 
 # print avg for both groups (neatly)
+
+print("High crime: \n" + str(numpy.mean(listOfHighCrimeUnemployementRate)))
+print("\nLow crime: \n" + str(numpy.mean(listOfLowCrimeUnemployementRate)))
