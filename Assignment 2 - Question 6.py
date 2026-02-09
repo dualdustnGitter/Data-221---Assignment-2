@@ -11,11 +11,11 @@
 import pandas
 import numpy
 
+#make content of csv file as variable
 csvFileInput = pandas.read_csv("crime.csv", delimiter=",")
-
 violentCrimesPerPopColumnOfDataframe = csvFileInput["ViolentCrimesPerPop"]
 
-
+# make a new column if violent crimes bigger then 0.5 then high crime or else its lowcrime
 listOfRiskValue = []
 for numberOfViolentCrimes in violentCrimesPerPopColumnOfDataframe:
     if numberOfViolentCrimes > 0.5:
@@ -34,7 +34,7 @@ listOfLowCrimeUnemployementRate = []
 
 
 
-
+# make 2 groups and average their unemployment rates
 for indexOfCSVCounter in range(len(csvFileInput)):
     if listOfRiskValue[indexOfCSVCounter] == "High-Crime":
         listOfHighCrimeUnemployementRate.append(columnOfPctUnemployed[indexOfCSVCounter])
