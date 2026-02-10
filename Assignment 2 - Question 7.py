@@ -36,7 +36,7 @@ for paragraphInWebPage in listOfAllParagraphsInWebPage:
 
 
 
-
+# printing output
 print("Title of Webpage:")
 print(titleOfWebpage.get_text())
 print("\nValid paragraph:")
