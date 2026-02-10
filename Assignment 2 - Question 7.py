@@ -11,11 +11,11 @@ import requests
 
 # this "header" is needed since wikipedia blocks "bots" from accessing their website
 # by adding this "header"/user agent it allows the program to access wikipedia
-userBrowerserHeader = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/127.0.0.0"} 
+userBrowerserHeader = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/127.0.0.0"} # used opera's user agent thing
 
 
 rawWebpageFromRequest = requests.get("https://en.wikipedia.org/wiki/Data_science", headers=userBrowerserHeader) # just copied this from lecture, apparently returns a request.Response object then .text converts it to uniCodez
-rawWebpageFromRequest.raise_for_status()
+# rawWebpageFromRequest.raise_for_status() # check if grabbing info from wiki page works testing stuff
 
 parsedHTMlPageOfWebpage = BeautifulSoup(rawWebpageFromRequest.text, "html5lib")
 
