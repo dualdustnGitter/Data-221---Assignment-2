@@ -21,33 +21,45 @@ parsedHTMlPageOfWebpage = BeautifulSoup(rawWebpageFromRequest.text, "html5lib")
 allthTagInWebPage = parsedHTMlPageOfWebpage.find_all("table")
 stringValidTableToUse = ""
 
+# finding a valid table
 for singularthTable in allthTagInWebPage:
     
     allRowDataInSingularTable = ""
-
     allRowDataInSingularTable = singularthTable.find_all("tr")
 
     # try: 
     #     allRowDataInSingularTable = singularthTable.find_all("tr")
     # except UnicodeEncodeError:
     #     print("Unicode Encoding error encountered")
+
+
+    # once i a valid table has been found then exit and continue
     if len(allRowDataInSingularTable) >= 3:
         stringValidTableToUse = singularthTable
         break
 
-print("Overall Table header:")
-print(stringValidTableToUse.find("th").text)
+# print("Overall Table header:")
+# print(stringValidTableToUse.find("th").text)
 # print(len(stringValidTableToUse.find_all("tr")))
 
+# initialize a dataFrame
 dataFrameOfWikipediaTable = pandas.DataFrame()
 
+# keeps track of max amount of elements according to all the row's data
 maxAmountOfElements = 0
+
+# goes through valid table
+# and finds data within its rows
 for singularTableRow in stringValidTableToUse.find_all("tr"):
+    # setting max number of elements dataFrame has in rows
     if len(singularTableRow.find_all("li")) > maxAmountOfElements:
         maxAmountOfElements = len(singularTableRow.find_all("li"))
 
 
+# go throuygh individual table rows and find header
+# then add the data in those rows to a dataframe
 for singularTableRow in stringValidTableToUse.find_all("tr"):
+    # getting header of row
     tableRowHeaderName = ""
     currentTableRowIndex = (stringValidTableToUse.find_all("tr")).index(singularTableRow)
     if singularTableRow.find("th") != None:
@@ -59,6 +71,7 @@ for singularTableRow in stringValidTableToUse.find_all("tr"):
     
 
 
+    # getting table row vales
     listOfRowTableValues = []
     for currentTableRowIndex in range(maxAmountOfElements):
         if currentTableRowIndex < len(singularTableRow.find_all("li")):
@@ -66,9 +79,11 @@ for singularTableRow in stringValidTableToUse.find_all("tr"):
         else:
             singularCurrentRowTableValue = ""
         
+        
         listOfRowTableValues.append(singularCurrentRowTableValue)
-
+    
+    # place into dataframe
     dataFrameOfWikipediaTable[tableRowHeaderName] = listOfRowTableValues
 
-
+# turn it into a csv file
 dataFrameOfWikipediaTable.to_csv("wiki_table.csv")
