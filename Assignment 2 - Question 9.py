@@ -6,6 +6,8 @@
 #   if cells are empty fill with ""
 #   save extractedd table to wiki_table.csv
 ###
+import pandas
+
 from bs4 import BeautifulSoup
 import requests
 
@@ -37,6 +39,13 @@ print("Overall Table header:")
 print(stringValidTableToUse.find("th").text)
 # print(len(stringValidTableToUse.find_all("tr")))
 
+dataFrameOfWikipediaTable = pandas.DataFrame()
+
+maxAmountOfElements = 0
+for singularTableRow in stringValidTableToUse.find_all("tr"):
+    if len(singularTableRow.find_all("li")) > maxAmountOfElements:
+        maxAmountOfElements = len(singularTableRow.find_all("li"))
+
 
 for singularTableRow in stringValidTableToUse.find_all("tr"):
     tableRowHeaderName = ""
@@ -47,3 +56,19 @@ for singularTableRow in stringValidTableToUse.find_all("tr"):
         tableRowHeaderName = "col" + str(currentTableRowIndex)
 
     # print(tableRowHeaderName)
+    
+
+
+    listOfRowTableValues = []
+    for currentTableRowIndex in range(maxAmountOfElements):
+        if currentTableRowIndex < len(singularTableRow.find_all("li")):
+            singularCurrentRowTableValue = singularTableRow.find_all("li")[currentTableRowIndex].text
+        else:
+            singularCurrentRowTableValue = ""
+        
+        listOfRowTableValues.append(singularCurrentRowTableValue)
+
+    dataFrameOfWikipediaTable[tableRowHeaderName] = listOfRowTableValues
+
+
+dataFrameOfWikipediaTable.to_csv("wiki_table.csv")
