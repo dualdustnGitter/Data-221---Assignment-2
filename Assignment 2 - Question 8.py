@@ -37,7 +37,7 @@ for singularh2Section in allRawh2SectionsInWebpage:
 
     if booleanTestForAddingSection:
         listOfAllValidh2Sections.append(singularh2Section)
-        stringOfAllValidh2Sections += str(stringOfAllValidh2Sections) + str(singularh2Section) +"\n"
+        stringOfAllValidh2Sections += str(stringOfAllValidh2Sections) + str(singularh2Section.text) +"\n"
 
 
 # create text file then close it
