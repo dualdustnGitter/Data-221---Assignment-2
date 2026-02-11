@@ -54,7 +54,7 @@ with open("sample-file.txt", "r") as textFileInput:
 
     
     # get top 10 repeated bigrams
-    topHowManyNumbersToBeRecorded = 10 # to avoid magic numbers
+    topHowManyNumbersToBeRecorded = 5 # to avoid magic numbers
     top10BigramQuantities = sorted(list(dictionaryOfUniqueBigramsAndQuantities.values()), reverse=True) # much like A1 sort by descending (biggest to smallest)
     top10BigramQuantities = top10BigramQuantities[:topHowManyNumbersToBeRecorded] # get first 10 
 
